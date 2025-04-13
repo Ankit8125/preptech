@@ -9,7 +9,7 @@ const WelcomeContainer = () => {
 
   return (
     <div>
-      <div>
+      <div className='p-10'>
         <h2>Welcome Back, {user?.name}</h2>
         <h2>AI-Driven Interviews</h2>
       </div>

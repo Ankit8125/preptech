@@ -6,7 +6,7 @@ import React from 'react'
 const Dashboard = () => {
   return (
     <div>
-      <WelcomeContainer />
+      {/* <WelcomeContainer /> */}
       <h2>Dashboard</h2>
       <CreateOptions />
       <LatestInterviewsList />

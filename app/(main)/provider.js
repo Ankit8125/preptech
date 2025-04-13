@@ -1,5 +1,6 @@
 import AppSidebar from '@/components/AppSidebar'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import WelcomeContainer from '@/components/WelcomeContainer'
 import React from 'react'
 
 const DashboardProvider = ({ children }) => {
@@ -8,6 +9,7 @@ const DashboardProvider = ({ children }) => {
       <AppSidebar />
       <div>
         <SidebarTrigger/>
+        <WelcomeContainer /> 
         {children}
       </div>
     </SidebarProvider>
