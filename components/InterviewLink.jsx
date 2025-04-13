@@ -4,6 +4,7 @@ import { Button } from './ui/button'
 import { ArrowLeft, Clock, Copy, List, Mail, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { toast } from 'sonner'
+import Image from 'next/image'
 
 const InterviewLink = ({ formData, interview_id }) => {
 
@@ -20,6 +21,7 @@ const InterviewLink = ({ formData, interview_id }) => {
 
   return (
     <div>
+      <Image src={'/tick.png'} height={50} width={50} alt='Completed'/>
       <h2>Your AI Interview is ready</h2>
       <p> Share this link with the candidate to start the interview process </p>
 
