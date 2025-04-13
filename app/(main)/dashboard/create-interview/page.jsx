@@ -1,5 +1,6 @@
 'use client'
 import FormContainer from '@/components/FormContainer'
+import InterviewLink from '@/components/InterviewLink'
 import QuestionList from '@/components/QuestionList'
 import { Progress } from '@/components/ui/progress'
 import { ArrowLeft } from 'lucide-react'
@@ -12,6 +13,7 @@ const CreateInterview = () => {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({})
+  const [interviewId, setInterviewId] = useState()
 
   const onHandleInputChange = (field, value) => {
     setFormData(prev => {
@@ -43,6 +45,11 @@ const CreateInterview = () => {
     setStep(step+1)
   }
 
+  const onCreateLink = (interview_id) => {
+    setInterviewId(interview_id)
+    setStep(step+1)
+  }
+
   return (
     <div>
       <div>
@@ -53,7 +60,9 @@ const CreateInterview = () => {
       {
         step == 1 ? <FormContainer onHandleInputChange={onHandleInputChange} GoToNext={onGoToNext} />
         : 
-        step == 2 ? <QuestionList  formData={formData}/>
+        step == 2 ? <QuestionList  formData={formData} onCreateLink={(interview_id) => onCreateLink(interview_id)} />
+        :
+        step == 3 ? <InterviewLink formData={formData} interview_id={interviewId} />
         : null
       }
     </div>

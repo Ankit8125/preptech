@@ -8,7 +8,7 @@ import { useUser } from '@/app/provider'
 import {v4 as uuidv4} from 'uuid'
 import { supabase } from '@/services/supabaseClient'
 
-const QuestionList = ({ formData }) => {
+const QuestionList = ({ onCreateLink, formData }) => {
   const [loading, setLoading] = useState(false)
   const [questionList, setQuestionList] = useState([])
   const [saveLoading, setSaveLoading] = useState(false)
@@ -68,7 +68,8 @@ const QuestionList = ({ formData }) => {
 
     console.log(data);
     setSaveLoading(false)
-
+    
+    onCreateLink(interview_id)
   }
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const QuestionList = ({ formData }) => {
           <Loader2Icon className='animate-spin'/>
           <div>
             <h2>Generating Interview Questions</h2>
-            <p>Gemini is crafting personalized questions based on your entered details.</p>
+            <p>AI is crafting personalized questions based on your entered details.</p>
           </div>
         </div>
       )}
@@ -92,11 +93,11 @@ const QuestionList = ({ formData }) => {
         </div>
       )}
       <div>
-        <Button onClick={() => handleFinish()} disabled={saveLoading}>
+        <Button onClick={() => handleFinish()} disabled={saveLoading || loading || questionList.length === 0}>
           {
             saveLoading && <Loader2 className='animate-spin'/>
           }
-          Finish
+          Create Interview Link & Finish
         </Button>
       </div>
     </div>

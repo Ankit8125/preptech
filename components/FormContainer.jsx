@@ -17,7 +17,7 @@ const FormContainer = ({ onHandleInputChange, GoToNext }) => {
   const [interviewType, setInterviewType] = useState([])
 
   // Had to do like this, so that when I click a selected interview type, it gets deselected
-  const AddInterviewType = (type) => {
+  const addInterviewType = (type) => {
     const data = interviewType.includes(type)
     if (!data) setInterviewType(prev => [...prev, type])
     else {
@@ -75,7 +75,7 @@ const FormContainer = ({ onHandleInputChange, GoToNext }) => {
             InterviewType.map((type, index) => (
               <div
                 key={index}
-                onClick={() => AddInterviewType(type.title)}
+                onClick={() => addInterviewType(type.title)}
               >
                 <type.icon />
                 <span>{type.title}</span>
