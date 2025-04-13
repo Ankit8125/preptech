@@ -12,7 +12,7 @@ import { InterviewType } from '@/Constants'
 import { Button } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 
-const FormContainer = ({ onHandleInputChange }) => {
+const FormContainer = ({ onHandleInputChange, GoToNext }) => {
 
   const [interviewType, setInterviewType] = useState([])
 
@@ -30,7 +30,7 @@ const FormContainer = ({ onHandleInputChange }) => {
     if (interviewType) {
       onHandleInputChange('type', interviewType)
     }
-  }, [])
+  }, [interviewType])
 
   return (
     <div>
@@ -86,7 +86,9 @@ const FormContainer = ({ onHandleInputChange }) => {
       </div>
 
       <div>
-        <Button> Generate Question <ArrowRight /> </Button>
+        <Button
+          onClick={() => GoToNext()}
+        > Generate Question <ArrowRight /> </Button>
       </div>
     </div>
   )
