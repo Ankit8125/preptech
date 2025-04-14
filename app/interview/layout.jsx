@@ -1,12 +1,20 @@
+'use client'
+
 import InterviewHeader from '@/components/InterviewHeader'
-import React from 'react'
+import { InterviewDataContext } from '@/context/InterviewDataContext'
+import React, { useState } from 'react'
 
 const InterviewLayout = ({ children }) => {
+
+  const [interviewInfo, setInterviewInfo] = useState()
+
   return (
-    <div>
-      <InterviewHeader />
-      {children}
-    </div>
+    <InterviewDataContext.Provider value={{ interviewInfo, setInterviewInfo }} >
+      <div>
+        <InterviewHeader />
+        {children}
+      </div>
+    </InterviewDataContext.Provider>
   )
 }
 

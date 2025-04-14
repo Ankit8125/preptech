@@ -1,11 +1,12 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { InterviewDataContext } from '@/context/InterviewDataContext'
 import { supabase } from '@/services/supabaseClient'
-import { Clock, Video } from 'lucide-react'
+import { Clock, Loader2Icon, Video } from 'lucide-react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import React, { useContext, useEffect, useState } from 'react'
 
 const Interview = () => {
 
@@ -15,6 +16,8 @@ const Interview = () => {
   const [interviewData, setInterviewData] = useState()
   const [loading, setLoading] = useState(false)
   const [userName, setUserName] = useState()
+  const { interviewInfo, setInterviewInfo } = useContext(InterviewDataContext)
+  const router = useRouter()
 
   const getInterviewDetails = async () => {
     setLoading(true)
@@ -29,7 +32,7 @@ const Interview = () => {
       setInterviewData(Interviews[0])
       setLoading(false)
 
-      if(Interviews?.length == 0){
+      if (Interviews?.length == 0) {
         toast('Incorrect Inteview Link')
         return
       }
@@ -38,6 +41,26 @@ const Interview = () => {
       toast("Incorrect Interview Link")
       setLoading(false)
     }
+  }
+
+  const handleJoinInterview = async () => {
+
+    setLoading(true)
+
+    let { data: Interviews, error } = await supabase
+      .from('Interviews')
+      .select("*")
+      .eq('interview_id', interview_id)
+
+    console.log(Interviews);
+    setInterviewInfo({
+      userName: userName,
+      interviewData: Interviews[0]
+    })
+
+    router.push('/interview/' + interview_id + '/start')
+
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -55,10 +78,10 @@ const Interview = () => {
 
         <div>
           <h2> Enter your full name </h2>
-          <Input 
-          placeholder='e.g. Ankit Verma' 
-          value = {userName || ''}
-          onChange = {(event) => setUserName(event.target.value)}
+          <Input
+            placeholder='e.g. Ankit Verma'
+            value={userName || ''}
+            onChange={(event) => setUserName(event.target.value)}
           />
         </div>
 
@@ -72,8 +95,9 @@ const Interview = () => {
         </div>
 
         <Button
-        disabled = {loading || !userName || userName.length == 0}
-        > <Video /> Join Interview </Button>
+          disabled={loading || !userName || userName.length == 0}
+          onClick={() => handleJoinInterview()}
+        > <Video /> {loading && <Loader2Icon />} Join Interview </Button>
       </div>
     </div>
   )
